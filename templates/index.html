@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compression</title>
+    <style>
+        body {
+            background-color: #1a1a1d;
+            color: #e6e6e6;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(40, 44, 52, 0.8);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.7);
+            width: 400px;
+        }
+
+        h1 {
+            color: #ff4d4d;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px #ff4d4d, 0 0 20px #ff1a1a;
+            animation: neonPulse 2s infinite alternate;
+        }
+
+        label {
+            font-weight: bold;
+            color: #ff4d4d;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        select, .file-input {
+            display: block;
+            margin: 1rem auto;
+            padding: 0.7rem;
+            font-size: 1rem;
+            background: #262626;
+            color: #ff4d4d;
+            border: 2px solid #ff4d4d;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:hover, .file-input:hover {
+            box-shadow: 0 0 10px #ff4d4d;
+        }
+
+        .button-3d {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(145deg, #ff4d4d, #ff1a1a);
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0px 8px 0px #b30000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button-3d:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 10px 15px #ff1a1a;
+        }
+
+        .success-message, .error-message {
+            color: #ff4d4d;
+            font-size: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        a {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(145deg, #ff4d4d, #ff1a1a);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 8px;
+            box-shadow: 0px 8px 0px #b30000;
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 10px 15px #ff1a1a;
+        }
+
+        @keyframes neonPulse {
+            from {
+                text-shadow: 0 0 10px #ff4d4d, 0 0 20px #ff1a1a;
+            }
+            to {
+                text-shadow: 0 0 20px #ff1a1a, 0 0 30px #ff4d4d;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Compression</h1>
+
+        {% if download_url %}
+            <p class="success-message">Image compressed successfully!</p>
+            <a href="{{ download_url }}">Download Compressed Image</a>
+        {% elif error %}
+            <p class="error-message">{{ error }}</p>
+        {% else %}
+            <form action="/" method="POST" enctype="multipart/form-data">
+                <label for="accuracy">Select Accuracy:</label>
+                <select name="accuracy" id="accuracy" required>
+                    <option value="0.8">80%</option>
+                    <option value="0.9">90%</option>
+                    <option value="0.95">95%</option>
+                    <option value="0.99">99%</option>
+                </select>
+                <label for="file">Choose File:</label>
+                <input class="file-input" id="file" type="file" name="image" accept="image/*" required>
+                <button type="submit" class="button-3d">Compress Image</button>
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>
